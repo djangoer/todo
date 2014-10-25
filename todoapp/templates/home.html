@@ -1,2 +1,423 @@
 {% extends "base.html" %}
-{% block body %}  <h1>hello</h1>   {% endblock %}
+{% block style_base %} 
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,200,100,800' rel='stylesheet' type='text/css'>
+<style type="text/css">
+
+h1, h2, h3, h4 {
+font-family: "Raleway", sans-serif;
+font-weight: 300;
+}
+.border-light {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+.panel-red, .partition-red {
+	background-color: #e66b6b;
+	position: relative;
+	background-color: #ea8181 0px;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ea8181 0px), to(#e66b6b 100%));
+	background-image: -webkit-linear-gradient(top, #ea8181 0px, #e66b6b 100%);
+	background-image: -moz-linear-gradient(top, #ea8181 0px, #e66b6b 100%);
+	background-image: -ms-linear-gradient(top, #ea8181 0px, #e66b6b 100%);
+	background-image: -o-linear-gradient(top, #ea8181 0px, #e66b6b 100%);
+	background-image: linear-gradient(top, #ea8181 0px, #e66b6b 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ea8181 0px', endColorStr='#e66b6b 100%');
+	color: white;
+}
+
+
+/* ---------------------------------------------------------------------- */
+/*  Widgets
+/* ---------------------------------------------------------------------- */
+.todo {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.todo li .todo-actions {
+  background: white;
+  border-bottom: 1px solid #E4E6EB;
+  margin-left: 0 !important;
+  padding: 10px 10px 10px 35px !important;
+  position: relative;
+  display: block;
+  color: #8B91A0;
+}
+.todo li .todo-actions:hover, .todo li .todo-actions:focus {
+  text-decoration: none;
+  background-color: #F4F6F9 !important;
+}
+.todo li .todo-actions > i {
+  color: #C7CBD5;
+  font-size: 18px;
+  margin: 0 5px 0 0;
+  position: absolute;
+  left: 10px;
+  top: 11px;
+  cursor: pointer;
+}
+.todo li .label {
+  position: absolute;
+  right: 10px;
+  padding: 6px;
+}
+.todo .todo-tools {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.clock-wrapper {
+  max-height: 100px;
+  float: right;
+  height: 100%;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.clock {
+  position: relative;
+  height: 0;
+  float: right;
+  width: 70%;
+  padding-bottom: 70%;
+}
+.clock .circle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 100px;
+  max-height: 100px;
+}
+.clock .face {
+  background: rgba(255, 255, 255, 0);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+.clock .face:after {
+  background: #FFFFFF;
+  border-radius: 4px;
+  content: "";
+  display: block;
+  height: 8px;
+  left: 50%;
+  margin: -4px 0 0 -4px;
+  position: absolute;
+  top: 50%;
+  width: 8px;
+}
+.clock .face:before {
+  background: rgba(255, 255, 255, 0);
+  border-radius: 50%;
+  bottom: 2px;
+  content: "";
+  display: block;
+  left: 2px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+}
+
+#hour {
+  background: #FFFFFF;
+  border-radius: 5px 0 0 5px;
+  height: 0;
+  left: 50%;
+  margin: -2px 0 -2px -25%;
+  padding: 2px 0 2px 25%;
+  position: absolute;
+  top: 50%;
+  -webkit-transform-origin: 100% 50%;
+  -moz-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  width: 0;
+}
+
+#minute {
+  background: #FFFFFF;
+  border-radius: 5px 5px 0 0;
+  height: 0;
+  left: 50%;
+  margin: -40% -2px 0;
+  padding: 40% 2px 0;
+  position: absolute;
+  top: 50%;
+  -webkit-transform-origin: 50% 100%;
+  -moz-transform-origin: 50% 100%;
+  -ms-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  width: 0;
+}
+
+#second {
+  background: rgba(255, 255, 255, 0.6);
+  height: 0;
+  left: 50%;
+  margin: -40% -1px 0 0;
+  padding: 40% 1px 0;
+  position: absolute;
+  top: 50%;
+  -webkit-transform-origin: 50% 100%;
+  -moz-transform-origin: 50% 100%;
+  -ms-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  width: 0;
+}
+
+.panel-white .clock .face, .partition-white .clock .face {
+  background: rgba(255, 255, 255, 0);
+  border: 2px solid rgba(44, 47, 59, 0.4);
+}
+.panel-white .clock .face:after, .partition-white .clock .face:after {
+  background: rgba(44, 47, 59, 0.4);
+}
+.panel-white .clock .face:before, .partition-white .clock .face:before {
+  background: rgba(44, 47, 59, 0);
+}
+.panel-white .clock #hour, .partition-white .clock #hour {
+  background: rgba(44, 47, 59, 0.4);
+  width: 0;
+}
+.panel-white .clock #minute, .partition-white .clock #minute {
+  background: rgba(44, 47, 59, 0.4);
+}
+.panel-white .clock #second, .partition-white .clock #second {
+  background: rgba(44, 47, 59, 0.2);
+}
+
+.weather {
+  float: right;
+  text-align: center;
+  width: 70%;
+  font-size: 25px;
+  margin-bottom: 10px;
+  max-width: 100px;
+}
+.weather > i {
+  font-size: 20px;
+  line-height: 20px;
+  margin-right: 10px;
+}
+
+.actual-date {
+  display: inline-block;
+}
+.actual-date .actual-day {
+  font-size: 11em;
+  line-height: 0.9em;
+  font-weight: 600;
+  display: block;
+}
+.actual-date .actual-month {
+  font-size: 2em;
+  line-height: 0.2em;
+  display: block;
+  text-align: center;
+}
+
+.appointments {
+  margin: 0;
+  padding: 15px 20px;
+  list-style: none;
+  position: relative;
+}
+.appointments .owl-next, .appointments .owl-prev {
+  position: absolute;
+  top: 0;
+  line-height: 70px;
+}
+.appointments .owl-next {
+  right: 0;
+}
+.appointments .owl-prev {
+  left: 0;
+}
+.appointments span {
+  display: block;
+}
+
+.mini-stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mini-stats li {
+  text-align: center;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+.mini-stats li:last-child {
+  border-right: 0 none;
+}
+.mini-stats .values {
+  font-size: 12px;
+  padding: 10px 0;
+}
+.mini-stats .values strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 2px;
+  line-height: 18px;
+}
+
+.mini-stats .sparkline-bar {
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#reportrange {
+  cursor: pointer;
+}
+
+.jqstooltip {
+  width: auto !important;
+  height: auto !important;
+  padding: 2px 6px !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  border: 0 !important;
+  border-radius: 3px;
+}
+</style>
+{% endblock %}
+{% block body %}  <h1><a href="http://www.cliptheme.com/demo/rapido/index.html#">the theme</a>
+</h1>   
+
+<div class="row">
+	<div class="col-lg-8 col-md-7"></div>
+	<div class="col-lg-4 col-md-5">
+		<div class="panel panel-red panel-calendar">
+			<div class="panel-heading border-light">
+				<h4 class="panel-title">Appointments</h4>
+				<div class="panel-tools">
+					<div class="dropdown">
+						<a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-white">
+							<i class="fa fa-cog"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-light pull-right" role="menu" style="display: none;">
+							<li>
+								<a class="panel-collapse collapses" href="#"><i class="fa fa-angle-up"></i> <span>Collapse</span> </a>
+							</li>
+							<li>
+								<a class="panel-refresh" href="#">
+									<i class="fa fa-refresh"></i> <span>Refresh</span>
+								</a>
+							</li>
+							<li>
+								<a class="panel-config" href="#panel-config" data-toggle="modal">
+									<i class="fa fa-wrench"></i> <span>Configurations</span>
+								</a>
+							</li>
+							<li>
+								<a class="panel-expand" href="#">
+									<i class="fa fa-expand"></i> <span>Fullscreen</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<a class="btn btn-xs btn-link panel-close" href="#">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="height-300">
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="actual-date">
+								<span class="actual-day">25</span>
+								<span class="actual-month">October</span>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="clock-wrapper">
+										<div class="clock">
+											<div class="circle">
+												<div class="face">
+													<div id="hour" style="-webkit-transform: rotate(340.508333333333deg); transform: rotate(340.508333333333deg);"></div>
+													<div id="minute" style="-webkit-transform: rotate(126.1deg); transform: rotate(126.1deg);"></div>
+													<div id="second" style="-webkit-transform: rotate(6deg); transform: rotate(6deg);"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="weather text-light">
+										<i class="wi-day-sunny"></i>
+										25°
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="appointments border-top border-bottom border-light space15">
+									<a class="btn btn-sm owl-prev text-light">
+										<i class="fa fa-chevron-left"></i>
+									</a>
+									<div class="e-slider owl-carousel owl-theme" data-plugin-options="{&quot;transitionStyle&quot;: &quot;goDown&quot;, &quot;pagination&quot;: false}" style="opacity: 1; display: block;">
+										<div class="owl-wrapper-outer"><div class="owl-wrapper" style="width: 2058px; left: -512.942323272316px; display: block;"><div class="owl-item" style="width: 343px;"><div class="item">
+											<div class="inline-block padding-10 border-right border-light">
+												<span class="bold-text text-small"><i class="fa fa-clock-o"></i> 17:00</span>
+												<span class="text-light text-extra-small">1 hour</span>
+											</div>
+											<div class="inline-block padding-10">
+												<span class="bold-text text-small">NETWORKING</span>
+												<span class="text-light text-small">Out to design conference</span>
+											</div>
+										</div></div><div class="owl-item" style="width: 343px;"><div class="item">
+											<div class="inline-block padding-10 border-right border-light">
+												<span class="bold-text text-small"><i class="fa fa-clock-o"></i> 18:30</span>
+												<span class="text-light text-extra-small">30 mins</span>
+											</div>
+											<div class="inline-block padding-10">
+												<span class="bold-text text-small">BOOTSTRAP SEMINAR</span>
+												<span class="text-light text-small">Problem Solving</span>
+											</div>
+										</div></div><div class="owl-item" style="width: 343px;"><div class="item">
+											<div class="inline-block padding-10 border-right border-light">
+												<span class="bold-text text-small"><i class="fa fa-clock-o"></i> 20:00</span>
+												<span class="text-light text-extra-small">2 hour</span>
+											</div>
+											<div class="inline-block padding-10">
+												<span class="bold-text text-small">Lunch with Nicole</span>
+												<span class="text-light text-small">Next on Tuesday</span>
+											</div>
+										</div></div></div></div>
+										
+										
+									</div>
+									<a class="btn btn-sm owl-next text-light"><i class="fa fa-chevron-right"></i> </a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="pull-right">
+								<a href="#newEvent" class="btn btn-sm btn-transparent-white new-event"><i class="fa fa-plus"></i> New Event </a>
+								<a href="#showCalendar" class="btn btn-sm btn-transparent-white show-calendar"><i class="fa fa-calendar-o"></i> Calendar </a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
