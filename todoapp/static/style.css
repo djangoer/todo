@@ -759,10 +759,9 @@ a.text-light:hover {
 .weather {
   float: right;
   text-align: center;
-  width: 70%;
-  font-size: 25px;
-  margin-bottom: 10px;
-  max-width: 100px;
+  /*width: 80%;*/
+  font-size: 20px;
+  margin-bottom: 10px;  
 }
 .weather > i {
   font-size: 20px;
@@ -1949,11 +1948,21 @@ Social Icons
   position: absolute;
   right: 10px;
   top: 14px;
-  filter: alpha(opacity=0);
+  /*filter: alpha(opacity=0);
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   -moz-opacity: 0;
   -khtml-opacity: 0;
   opacity: 0;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;*/
+  filter: alpha(opacity=50);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=.5)";
+  -moz-opacity: .5;
+  -khtml-opacity: .5;
+  opacity: .5;
   -moz-transition: opacity 0.5s ease-in-out;
   -o-transition: opacity 0.5s ease-in-out;
   -webkit-transition: opacity 0.5s ease-in-out;
