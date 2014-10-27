@@ -76,9 +76,9 @@ h1, h2, h3, h4 {
 										<div class="clock">
 											<div class="circle">
 												<div class="face">
-													<div id="hour" style="-webkit-transform: rotate(340.508333333333deg); transform: rotate(340.508333333333deg);"></div>
-													<div id="minute" style="-webkit-transform: rotate(126.1deg); transform: rotate(126.1deg);"></div>
-													<div id="second" style="-webkit-transform: rotate(6deg); transform: rotate(6deg);"></div>
+													<div id="hour"></div>
+													<div id="minute"></div>
+													<div id="second"></div>
 												</div>
 											</div>
 										</div>
@@ -137,8 +137,12 @@ h1, h2, h3, h4 {
 
 {% block javascript %}
 <script src="{% static "owl-carousel/owl.carousel.js" %}"></script>
+<script src="http://momentjs.com/static/js/global.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
+	// ToDo carousel
+	//===============
 	var owl = $("#tasks-slider");
  	owl.owlCarousel({
       navigation : false,  //Show next and prev buttons
@@ -154,6 +158,23 @@ $(document).ready(function() {
 	$(".appointments .owl-prev").click(function(){
 	    owl.trigger('owl.prev');
 	})
+
+	// Clock
+	//===============
+	function updateClock() {
+	    var now = moment(),
+	        second = now.seconds() * 6,
+	        minute = now.minutes() * 6 + second / 60,
+	        hour = ((now.hours() % 12) / 12) * 360 + 90 + minute / 12;
+	    $('#hour').css("transform", "rotate(" + hour + "deg)");
+	    $('#minute').css("transform", "rotate(" + minute + "deg)");
+	    $('#second').css("transform", "rotate(" + second + "deg)");
+	}
+	function timedUpdate() {
+	    updateClock();
+	    setTimeout(timedUpdate, 1000);
+	}
+	timedUpdate();
 });
 </script>
   {% block extra_script %}{% endblock %}
