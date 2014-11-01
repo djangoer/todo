@@ -83,3 +83,31 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT='/home/suhailvs/webapps/todo/myproject/todo/static/'
+
+# this will enable to call {{request.user}}
+from django.conf import global_settings
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    "django.core.context_processors.request",
+)
+
+# postgre sql database
+cur_host= os.environ.get('HOSTNAME','')
+if cur_host=='web469.webfaction.com':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+            'NAME': 'todo',
+            'USER': 'suhail',
+            'PASSWORD': 'suhail',
+            'HOST': '',   # Or an IP Address that your DB is hosted on
+        }
+    }
+
+
+# django central auth
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas_ng.backends.CASBackend',
+)
+CAS_SERVER_URL ="http://stack.djangoer.com/cas/"
